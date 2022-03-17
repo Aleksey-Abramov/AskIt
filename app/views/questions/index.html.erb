@@ -15,7 +15,7 @@
     <!-- edit_question_path(@question) - передаем переменную question, чтобы передать параметры из url запроса -->
     <%= link_to 'Edit', edit_question_path(question) %>|
     <!-- Необходимо помимо пути указать метод HTTP delete, чтобы указать, что надо удалить данные -->
-    <%= link_to 'Destroy', question_path(question), data: {turbo_method: :delete, turbo_confirm: "?"} %>
+    <%= link_to 'Destroy', question_path(question), data: {method: :delete, confirm: "?"} %>
   </p>
 <% end %>
 
