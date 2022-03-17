@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AskIt</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_tag %>
+  </head>
+
+  <body>
+  <!--Добавили навигацию для всех страниц-->
+    <nav>
+      <ul>
+        <!--Для ссылок будем использовать именованные ссылки ruby on rails-->
+        <!--Каждый маршрут имеет название, которое можно посмотреть в консоли командой 'rails routes' в столбце Prefix + '_path'-->
+        <li><%= link_to 'Home', root_path %></li>
+        <li><%= link_to 'Questions', questions_path %></li>
+      </ul>
+    </nav>
+
+    <!--Сюда перенесли основное содержание таблицы-->
+    <main>
+      <%= yield %>
+    </main>
+  </body>
+</html>

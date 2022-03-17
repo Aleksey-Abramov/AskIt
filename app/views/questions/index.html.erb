@@ -1,0 +1,21 @@
+<h1>Questions</h1>
+
+<% @questions.each do |question| %>
+  <h2> <%= question.title  %></h2>
+
+  <time datetime="<%= question.formatted_created_at %>">
+    <%= question.formatted_created_at %>
+  </time>
+
+  <p>
+    <%= question.body %>
+    <br>
+    <!-- Форма просмотра -->
+    <%= link_to 'Show', question_path(question) %>|
+    <!-- edit_question_path(@question) - передаем переменную question, чтобы передать параметры из url запроса -->
+    <%= link_to 'Edit', edit_question_path(question) %>|
+    <!-- Необходимо помимо пути указать метод HTTP delete, чтобы указать, что надо удалить данные -->
+    <%= link_to 'Destroy', question_path(question), data: {turbo_method: :delete, turbo_confirm: "?"} %>
+  </p>
+<% end %>
+
