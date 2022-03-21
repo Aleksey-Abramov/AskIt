@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>AskIt</title>
-    <%= javascript_include_tag :application %>
-
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= javascript_include_tag :application %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -25,10 +25,14 @@
           </ul>
         </nav>
       </div>
-    </header>
+    </header>    
 
     <!--Сюда перенесли основное содержание таблицы-->
-    <main>
+    <main class="container mt-3">
+      <!-- Обработка всплывающий значений по ключу -->
+      <% flash.each do |k, v| %>
+        <%= tag.div v, class: "alert alert-#{k}", role: 'alert'%>
+      <% end %>
       <%= yield %>
     </main>
   </body>

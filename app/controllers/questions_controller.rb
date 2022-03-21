@@ -25,6 +25,9 @@ class QuestionsController < ApplicationController
 
     # Создали вопрос, сохраняем его и что-то делаем в зависимости от успешного (или нет) сохранения
     if @question.save
+      # Всплывающее окно, что создали новую запись
+      # :success - ключ, к которому можно обратиться в форме
+      flash[:success] = "Question created!"
       # Если сохранили, то перенаправляем на другую страницу - страницу всех вопросов
       redirect_to questions_path
     else
@@ -48,6 +51,7 @@ class QuestionsController < ApplicationController
     @question = Question.find_by id: params[:id]
     # Изменили вопрос, запихнули в него новые параметры и обновляем его
     if @question.update question_params
+      flash[:success] = "Question updated!"
       # Если сохранили, то перенаправляем на другую страницу - страницу всех вопросов
       redirect_to questions_path
     else
@@ -60,6 +64,7 @@ class QuestionsController < ApplicationController
     # Метод для удаления вопросов, втч из БД
     @question = Question.find_by id: params[:id]
     @question.destroy
+    flash[:success] = "Question deleted!"
 
     redirect_to questions_path
   end
