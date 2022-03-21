@@ -1,5 +1,9 @@
 # Создали контроллер, которые будет отображать все вопросы
 class QuestionsController < ApplicationController
+
+  # Вынесем повторяющуюся часть, которая будет выполняться перед нужными методами
+  before_action :set_question, only: %i[show destroy edit update]
+
   def index
     # Методы вытаскивает из БД все вопросы и запихивает в переменную, которую потом будем использовать для отображения
     @questions = Question.all
@@ -42,13 +46,15 @@ class QuestionsController < ApplicationController
     # id: - то поле в БД, по которому осуществляется поиск
     # params - объект, где лежат все параметры запроса
     # [:id] - параметр запроса, который берется из url
-    @question = Question.find_by id: params[:id]
+    # Перенесли в set_question
+    # @question = Question.find_by id: params[:id]
   end
 
   def update
     # Метод для изменения вопроса, а точнее обрабатывает форму редактирования
     # Ищем вопрос, который надо изменить
-    @question = Question.find_by id: params[:id]
+    # Перенесли в set_question
+    # @question = Question.find_by id: params[:id]
     # Изменили вопрос, запихнули в него новые параметры и обновляем его
     if @question.update question_params
       flash[:success] = "Question updated!"
@@ -62,7 +68,8 @@ class QuestionsController < ApplicationController
 
   def destroy
     # Метод для удаления вопросов, втч из БД
-    @question = Question.find_by id: params[:id]
+    # Перенесли в set_question
+    # @question = Question.find_by id: params[:id]
     @question.destroy
     flash[:success] = "Question deleted!"
 
@@ -71,7 +78,8 @@ class QuestionsController < ApplicationController
 
   def show
     # Метод для просмотра вопроса, т.е. отображение формы просмотра
-    @question = Question.find_by id: params[:id]
+    # Перенесли в set_question
+    #@question = Question.find_by id: params[:id]
   end
 
   private
@@ -79,6 +87,11 @@ class QuestionsController < ApplicationController
     # Метод просто достает title и body вопроса из параметров для дальнейшей работы с ними
     # permit - разрешает создать и работать с теми параметрами, которые мы явно указали - защита от дурака, чтобы не меняли то, что не надо
     params.require(:question).permit(:title, :body)
+  end
+
+  def set_question
+    # Добавили обработку ошибок в случае, если id не существует
+    @question = Question.find params[:id]
   end
 end
 
