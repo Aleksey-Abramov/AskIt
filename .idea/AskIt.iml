@@ -43,7 +43,6 @@
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.11.1, ruby-3.1.1-p18) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.4, ruby-3.1.1-p18) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.3.9, ruby-3.1.1-p18) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.1.9, ruby-3.1.1-p18) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, ruby-3.1.1-p18) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cssbundling-rails (v1.1.0, ruby-3.1.1-p18) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.4.0, ruby-3.1.1-p18) [gem]" level="application" />

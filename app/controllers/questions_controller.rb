@@ -83,7 +83,7 @@ class QuestionsController < ApplicationController
     # Привязываем ответ к вопросу
     @answer = @question.answers.build
     # Отображение ответов к конкретному вопросу (:desc - сортировка по убыванию - новый наверху)
-    @answers = Answer.order created_at: :desc
+    @answers = @question.answers.order created_at: :desc
   end
 
   private
