@@ -2,7 +2,7 @@
 class QuestionsController < ApplicationController
 
   # Вынесем повторяющуюся часть, которая будет выполняться перед нужными методами
-  before_action :set_question, only: %i[show destroy edit update]
+  before_action :set_question!, only: %i[show destroy edit update]
 
   def index
     # Методы вытаскивает из БД все вопросы и запихивает в переменную, которую потом будем использовать для отображения
@@ -80,6 +80,10 @@ class QuestionsController < ApplicationController
     # Метод для просмотра вопроса, т.е. отображение формы просмотра
     # Перенесли в set_question
     #@question = Question.find_by id: params[:id]
+    # Привязываем ответ к вопросу
+    @answer = @question.answers.build
+    # Отображение ответов к конкретному вопросу (:desc - сортировка по убыванию - новый наверху)
+    @answers = Answer.order created_at: :desc
   end
 
   private
@@ -89,7 +93,7 @@ class QuestionsController < ApplicationController
     params.require(:question).permit(:title, :body)
   end
 
-  def set_question
+  def set_question!
     # Добавили обработку ошибок в случае, если id не существует
     @question = Question.find params[:id]
   end
