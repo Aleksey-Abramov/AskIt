@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
 
   def index
     # Методы вытаскивает из БД все вопросы и запихивает в переменную, которую потом будем использовать для отображения
-    @questions = Question.all
+    @questions = Question.order(created_at: :desc).page params[:page]
   end
 
   def new
@@ -83,7 +83,8 @@ class QuestionsController < ApplicationController
     # Привязываем ответ к вопросу
     @answer = @question.answers.build
     # Отображение ответов к конкретному вопросу (:desc - сортировка по убыванию - новый наверху)
-    @answers = @question.answers.order created_at: :desc
+    @answers = @question.answers.order(created_at: :desc).page(params[:page]).per(5)
+    # @answers = Answer.where(question: @question).order created_at: :desc
   end
 
   private

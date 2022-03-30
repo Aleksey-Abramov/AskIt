@@ -1,6 +1,11 @@
+<!-- Ссылка на локальный yield - название вкладки -->
+<% provide :page_title, 'Questions' %>
+<% currently_at 'Questions' %>
 <h1 class="mb-4"> Questions</h1>
 
 <%= link_to 'New question', new_question_path, class: 'btn btn-primary btn-lg' %>
+
+<%= paginate @questions %>
 
 <% @questions.each do |question| %>
   <article class="card mt-3">
@@ -13,7 +18,9 @@
         </time>
 
         <p>
-          <%= question.body %>
+          <!-- Добавили helper 'strip_tags', который удаляет все теги из тела вопроса в данной форме-->
+          <!-- Добавили 'truncate', который устанавливает ограничение по длине и продолжение -->
+          <%= truncate strip_tags(question.body), length: 150, omission: '... (continued)' %>
         </p>
       </section>
 
@@ -28,4 +35,6 @@
     </div>
   </article>
 <% end %>
+
+<%= paginate @questions %>
 

@@ -1,3 +1,6 @@
+<% provide :page_title, "#{@question.title}" %>
+<% currently_at 'Questions' %>
+
 <h1 class="mb-4"><%= @question.title %></h1>
 
 
@@ -5,9 +8,11 @@
     <%= @question.formatted_created_at %>
 </time>
 
-<p class="lead my-3">
-    <%= @question.body %>
-</p>
+<div class="lead my-3">
+    <!-- Добавили обработчик тегов
+     sanitize - helper, который позволяет использовать теги только для -->
+    <%= sanitize @question.body %>
+</div>
 
 <%= link_to 'Show', question_path(@question), class: 'btn btn-primary' %>
 <!-- edit_question_path(@question) - передаем переменную question, чтобы передать параметры из url запроса -->
@@ -26,22 +31,13 @@ data: {method: :delete, confirm: "?"} %>
 <!-- Отображение списка объектов -->
 <h2 class="mt-5">Answers</h2>
 
-<% @answers.each do |answer| %>
-  <article class="mb-3 card">
-    <div class="card-body">
-      <section class="card-text">
-        <small><time datetime="<%= answer.formatted_created_at %>">
-          <%= answer.formatted_created_at %>
-          </time></small>
+<!-- Убираем за ненадобностью -->
+<%# @answers.each do |answer| %>
+  <!-- Перенесли в partial _answer, а рендер сам все сделает и отрендерит каждый элемент коллекции -->
+<%# end %>
+<%= paginate @answers %>
 
-        <p class="mt-2 mb-3">
-          <%= answer.body %>
-        </p>
-      </section>
-      <%= link_to 'Edit', edit_question_answer_path(@question, answer), class: 'btn btn-info btn-sm' %>
+<!-- Уходим от глобального использования @questions, а передаем как локальную переменную -->
+<%= render partial: 'answers/answer', collection: @answers, as: :answer, locals: {question: @question}%>
 
-      <%= link_to 'Delete', question_answer_path(@question, answer), class: 'btn btn-danger btn-sm',
-                  data: {method: :delete, confirm: "?"}%>
-    </div>
-  </article>
-<% end %>
+<%= paginate @answers %>

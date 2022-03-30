@@ -30,7 +30,8 @@ class AnswersController < ApplicationController
     if @answer.update answer_params
       flash[:success] = "Answer updated!"
       # Если сохранили, то перенаправляем на другую страницу - страницу всех вопросов
-      redirect_to question_path(@question)
+      # Добавим якорь, чтобы при изменении ответа вид перемещался на этот ответ
+      redirect_to question_path(@question, anchor: "answer-#{@answer.id}")
     else
       # Если сохранить не удалось, тогда еще раз отрендерить представление (view) new.html.erb
       render :edit
