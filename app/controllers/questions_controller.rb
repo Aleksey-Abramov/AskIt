@@ -6,7 +6,9 @@ class QuestionsController < ApplicationController
 
   def index
     # Методы вытаскивает из БД все вопросы и запихивает в переменную, которую потом будем использовать для отображения
-    @questions = Question.order(created_at: :desc).page params[:page]
+    # Поменяли с метода от kaminari на pagy
+    #@questions = Question.order(created_at: :desc).page params[:page]
+    @pagy, @questions = pagy Question.order(created_at: :desc)
   end
 
   def new
@@ -83,8 +85,10 @@ class QuestionsController < ApplicationController
     # Привязываем ответ к вопросу
     @answer = @question.answers.build
     # Отображение ответов к конкретному вопросу (:desc - сортировка по убыванию - новый наверху)
-    @answers = @question.answers.order(created_at: :desc).page(params[:page]).per(5)
+    # @answers = @question.answers.order(created_at: :desc).page(params[:page]).per(5)
     # @answers = Answer.where(question: @question).order created_at: :desc
+    # Аналогично меняем для ответов пагинацию
+    @pagy, @answers = pagy @question.answers.order(created_at: :desc)
   end
 
   private

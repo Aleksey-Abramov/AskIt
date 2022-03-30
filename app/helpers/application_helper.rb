@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def full_title(page_title = "")
     # Helper отображает наименование вкладки в зависимости от того, на какой странице находимся
     base_title = "AskIt"

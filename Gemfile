@@ -28,7 +28,7 @@ gem "turbo-rails"
 
 gem 'jquery-rails'
 
-gem 'kaminari', '~> 1.2'
+gem 'pagy', '~> 4.10'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"

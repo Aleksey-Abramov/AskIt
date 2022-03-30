@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  # Для использования якорей с помощью dom_id
+  include ActionView::RecordIdentifier
 
   before_action :set_question!
   before_action :set_answer!, except: :create
@@ -31,7 +33,7 @@ class AnswersController < ApplicationController
       flash[:success] = "Answer updated!"
       # Если сохранили, то перенаправляем на другую страницу - страницу всех вопросов
       # Добавим якорь, чтобы при изменении ответа вид перемещался на этот ответ
-      redirect_to question_path(@question, anchor: "answer-#{@answer.id}")
+      redirect_to question_path(@question, anchor: dom_id(@answer))
     else
       # Если сохранить не удалось, тогда еще раз отрендерить представление (view) new.html.erb
       render :edit
